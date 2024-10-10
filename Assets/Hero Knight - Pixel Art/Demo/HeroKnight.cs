@@ -16,6 +16,7 @@ public class HeroKnight : MonoBehaviour {
     private Sensor_HeroKnight   m_wallSensorR2;
     private Sensor_HeroKnight   m_wallSensorL1;
     private Sensor_HeroKnight   m_wallSensorL2;
+    private BoxCollider2D SwordCollider;
     private bool                m_isWallSliding = false;
     private bool                m_grounded = false;
     private bool                m_rolling = false;
@@ -37,6 +38,7 @@ public class HeroKnight : MonoBehaviour {
         m_wallSensorR2 = transform.Find("WallSensor_R2").GetComponent<Sensor_HeroKnight>();
         m_wallSensorL1 = transform.Find("WallSensor_L1").GetComponent<Sensor_HeroKnight>();
         m_wallSensorL2 = transform.Find("WallSensor_L2").GetComponent<Sensor_HeroKnight>();
+        SwordCollider = transform.Find("Sword").GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
@@ -124,6 +126,9 @@ public class HeroKnight : MonoBehaviour {
 
             // Reset timer
             m_timeSinceAttack = 0.0f;
+
+            //Attack Hit
+            StartCoroutine("HitAttack");
         }
 
         // Block
@@ -172,7 +177,12 @@ public class HeroKnight : MonoBehaviour {
                     m_animator.SetInteger("AnimState", 0);
         }
     }
-
+   private IEnumerator HitAttack()
+    {
+        SwordCollider.enabled = true;
+        yield return new WaitForSeconds(0.5f);
+        SwordCollider.enabled = false;
+    }
     // Animation Events
     // Called in slide animation.
     void AE_SlideDust()
