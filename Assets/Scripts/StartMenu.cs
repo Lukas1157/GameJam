@@ -10,7 +10,7 @@ public class StartMenu : MonoBehaviour
     public void StartGame()
     {
       
-        SceneManager.LoadScene("mainszene Lukas");
+        SceneManager.LoadScene("Finales Spiel");
     }
   
     public void Exit()

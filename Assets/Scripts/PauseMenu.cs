@@ -38,13 +38,13 @@ public class PauseMenu : MonoBehaviour
         GameIsPaused = true;
     }
 
-    public void Exit()
+    public void Menu()
     {
-        Application.Quit();
+        SceneManager.LoadScene("MainMenuUI");
     }
 
     public void Restart()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("Finales Spiel");
     }
 }
