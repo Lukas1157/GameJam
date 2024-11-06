@@ -11,6 +11,7 @@ public class StartMenu : MonoBehaviour
     {
       
         SceneManager.LoadScene("Finales Spiel");
+        Time.timeScale = 1f;
     }
   
     public void Exit()
@@ -21,5 +22,6 @@ public class StartMenu : MonoBehaviour
     public void Controls()
     {
         SceneManager.LoadScene("ControlsUI");
+        Time.timeScale = 1f;
     }
 }

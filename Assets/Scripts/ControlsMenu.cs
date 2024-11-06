@@ -11,6 +11,7 @@ public class ControlsMenu : MonoBehaviour
     {
       
         SceneManager.LoadScene("MainMenuUI");
+        Time.timeScale = 1f;
     }
   
 

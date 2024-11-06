@@ -46,5 +46,7 @@ public class PauseMenu : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene("Finales Spiel");
+        Time.timeScale = 1f;
+        GameIsPaused = false;
     }
 }
