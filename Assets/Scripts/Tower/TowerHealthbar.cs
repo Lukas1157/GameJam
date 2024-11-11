@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TowerDamage : MonoBehaviour
+public class TowerHealthbar : MonoBehaviour
 {
     public Slider Towerslider;
 
