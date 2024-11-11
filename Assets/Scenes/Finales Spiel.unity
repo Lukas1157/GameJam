@@ -550,7 +550,7 @@ GameObject:
   - component: {fileID: 102958113}
   - component: {fileID: 102958112}
   m_Layer: 5
-  m_Name: TowerDamage
+  m_Name: TowerHealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1011,7 +1011,7 @@ GameObject:
   - component: {fileID: 341525563}
   - component: {fileID: 341525562}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: UI Healthbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1827,7 +1827,7 @@ GameObject:
   - component: {fileID: 582559533}
   - component: {fileID: 582559532}
   m_Layer: 5
-  m_Name: HealthSlider
+  m_Name: PlayerHealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
