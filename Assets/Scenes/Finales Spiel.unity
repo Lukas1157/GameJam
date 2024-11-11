@@ -589,7 +589,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd97a7ebbdc3eb64891541adeb3a5682, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Towerslider: {fileID: 0}
+  Towerslider: {fileID: 102958113}
 --- !u!114 &102958113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10382,8 +10382,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 649dc321f6793463aa91f8f6fa304879, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
   maxHealth: 10
+  currentHealth: 0
+  healthBar: {fileID: 102958112}
 --- !u!61 &2101653691
 BoxCollider2D:
   m_ObjectHideFlags: 0
