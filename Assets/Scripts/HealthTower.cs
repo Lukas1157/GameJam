@@ -4,30 +4,33 @@ using UnityEngine;
 
 public class HealthTower : MonoBehaviour
 {
-
-    public int health;
     public int maxHealth = 10;
+    public int currentHealth;
+
+    public TowerHealthbar healthBar;
+
     // Start is called before the first frame update
     void Start()
     {
-        health = maxHealth;
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            TakeDamage(1);
+        }
     }
 
 
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(int damage)
     {
-        health -= amount;
+        currentHealth -= damage;
 
-        if(health <= 0)
-        {
-            Destroy(gameObject);
-        }
+        healthBar.SetHealth(currentHealth);
     }
 }
