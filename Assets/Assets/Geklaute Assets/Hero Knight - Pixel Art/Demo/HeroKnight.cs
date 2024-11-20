@@ -80,11 +80,6 @@ public class HeroKnight : MonoBehaviour
             m_animator.SetBool("Grounded", m_grounded);
 
 
- 
-
-
-
-
         }
 
         //Check if character just started falling
@@ -215,6 +210,18 @@ public class HeroKnight : MonoBehaviour
             m_animator.SetTrigger("Death");
             isDying = true;
         }
+
+
+        //Movemtn Platform
+        if (Input.GetKeyDown(KeyCode.Space) && isOnPlatform)
+    {
+        transform.SetParent(null); // Parenting entfernen
+        isOnPlatform = false; // Spieler verlässt die Plattform
+
+
+    }
+
+
     }
 
     //Player HEALTH
@@ -252,36 +259,16 @@ public class HeroKnight : MonoBehaviour
     }
 
     //Movement on Moving Platforms
-    private void OnCollisionEnter2D(Collision2D collision)
+  private void OnCollisionEnter2D(Collision2D collision)
 {
-    // Prüfen, ob die Kollision mit einer Plattform erfolgt
-    if (collision.gameObject.CompareTag("MovingPlatform"))
+    if (collision.gameObject.CompareTag("MovingPlatform")) // Überprüft, ob es eine Plattform ist
     {
-        currentPlatform = collision.transform; // Plattform setzen
-        isOnPlatform = true; // Spieler ist auf der Plattform
-        transform.SetParent(currentPlatform); // Spieler wird geparented
+        currentPlatform = collision.transform; // Speichert die Plattform
+        transform.SetParent(currentPlatform); // Setzt die Plattform als Parent
     }
 }
 
-private void OnCollisionExit2D(Collision2D collision)
-{
-    // Prüfen, ob die Kollision mit der Plattform endet
-    if (collision.gameObject.CompareTag("MovingPlatform"))
-    {
-        isOnPlatform = false; // Spieler ist nicht mehr auf der Plattform
-        transform.SetParent(null); // Parenting entfernen
-    }
-}
 
-private void FixedUpdate()
-{
-    // Zusätzliche Sicherheitsabfrage
-    if (isOnPlatform && currentPlatform != null)
-    {
-        Vector3 newPosition = transform.position;
-        newPosition.y = currentPlatform.position.y; // Spieler bleibt auf der gleichen Höhe wie die Plattform
-        transform.position = newPosition;
-    }
-}
-}
 
+
+}
