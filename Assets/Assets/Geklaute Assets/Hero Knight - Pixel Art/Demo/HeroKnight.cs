@@ -30,11 +30,16 @@ public class HeroKnight : MonoBehaviour
     private float m_rollDuration = 8.0f / 14.0f;
     private float m_rollCurrentTime;
 
+    //Movement on Moving Platforms
+    private Transform currentPlatform;
+    private bool isOnPlatform = false;
+
     //Player HEALTH
     public int maxHealth = 100;
     public int currentHealth;
     public HealthBar healthBar;
     public bool isDying = false;
+
 
 
     // Use this for initialization
@@ -73,6 +78,13 @@ public class HeroKnight : MonoBehaviour
         {
             m_grounded = true;
             m_animator.SetBool("Grounded", m_grounded);
+
+
+ 
+
+
+
+
         }
 
         //Check if character just started falling
@@ -238,4 +250,38 @@ public class HeroKnight : MonoBehaviour
             dust.transform.localScale = new Vector3(m_facingDirection, 1, 1);
         }
     }
+
+    //Movement on Moving Platforms
+    private void OnCollisionEnter2D(Collision2D collision)
+{
+    // Prüfen, ob die Kollision mit einer Plattform erfolgt
+    if (collision.gameObject.CompareTag("MovingPlatform"))
+    {
+        currentPlatform = collision.transform; // Plattform setzen
+        isOnPlatform = true; // Spieler ist auf der Plattform
+        transform.SetParent(currentPlatform); // Spieler wird geparented
+    }
 }
+
+private void OnCollisionExit2D(Collision2D collision)
+{
+    // Prüfen, ob die Kollision mit der Plattform endet
+    if (collision.gameObject.CompareTag("MovingPlatform"))
+    {
+        isOnPlatform = false; // Spieler ist nicht mehr auf der Plattform
+        transform.SetParent(null); // Parenting entfernen
+    }
+}
+
+private void FixedUpdate()
+{
+    // Zusätzliche Sicherheitsabfrage
+    if (isOnPlatform && currentPlatform != null)
+    {
+        Vector3 newPosition = transform.position;
+        newPosition.y = currentPlatform.position.y; // Spieler bleibt auf der gleichen Höhe wie die Plattform
+        transform.position = newPosition;
+    }
+}
+}
+
