@@ -32,7 +32,7 @@ public class HeroKnight : MonoBehaviour
 
     //Movement on Moving Platforms
     private Transform currentPlatform;
-    private bool isOnPlatform = false;
+    private bool isOnPlatform = false; 
 
     //Player HEALTH
     public int maxHealth = 100;
@@ -218,6 +218,7 @@ public class HeroKnight : MonoBehaviour
         transform.SetParent(null); // Parenting entfernen
         isOnPlatform = false; // Spieler verlässt die Plattform
 
+        
 
     }
 
@@ -259,12 +260,29 @@ public class HeroKnight : MonoBehaviour
     }
 
     //Movement on Moving Platforms
-  private void OnCollisionEnter2D(Collision2D collision)
+  private void OnTriggerEnter2D(Collider2D collision)
 {
-    if (collision.gameObject.CompareTag("MovingPlatform")) // Überprüft, ob es eine Plattform ist
+    // Prüfen, ob der Trigger mit einer Plattform erfolgt
+    if (collision.CompareTag("MovingPlatform"))
     {
-        currentPlatform = collision.transform; // Speichert die Plattform
-        transform.SetParent(currentPlatform); // Setzt die Plattform als Parent
+        // Wenn der Spieler noch nicht auf der Plattform ist, setze Parenting
+        if (!isOnPlatform)
+        {
+            currentPlatform = collision.transform;
+            isOnPlatform = true;
+            transform.SetParent(currentPlatform); // Parenting setzen
+        }
+    }
+}
+
+private void OnTriggerExit2D(Collider2D collision)
+{
+    // Prüfen, ob der Trigger mit der Plattform endet
+    if (collision.CompareTag("MovingPlatform") && collision.transform == currentPlatform)
+    {
+        currentPlatform = null;
+        isOnPlatform = false;
+        transform.SetParent(null); // Parenting entfernen
     }
 }
 
