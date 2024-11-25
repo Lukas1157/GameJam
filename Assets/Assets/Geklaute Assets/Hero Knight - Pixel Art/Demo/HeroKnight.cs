@@ -29,6 +29,7 @@ public class HeroKnight : MonoBehaviour
     private float m_delayToIdle = 0.0f;
     private float m_rollDuration = 8.0f / 14.0f;
     private float m_rollCurrentTime;
+    private SpriteRenderer m_spriteRenderer;
 
     //Movement on Moving Platforms
     private Transform currentPlatform;
@@ -53,6 +54,8 @@ public class HeroKnight : MonoBehaviour
         m_wallSensorL1 = transform.Find("WallSensor_L1").GetComponent<Sensor_HeroKnight>();
         m_wallSensorL2 = transform.Find("WallSensor_L2").GetComponent<Sensor_HeroKnight>();
         SwordCollider = transform.Find("Sword").GetComponent<BoxCollider2D>();
+        m_spriteRenderer = GetComponent<SpriteRenderer>();
+
 
         //Player HEALTH
         currentHealth = 100;
@@ -93,16 +96,18 @@ public class HeroKnight : MonoBehaviour
         float inputX = Input.GetAxis("Horizontal");
 
         // Swap direction of sprite depending on walk direction
-        if (inputX > 0)
+        if (inputX > 0 && m_spriteRenderer.flipX == true)
         {
-            GetComponent<SpriteRenderer>().flipX = false;
+            m_spriteRenderer.flipX = false;
             m_facingDirection = 1;
+            SwordCollider.offset = new Vector2(-SwordCollider.offset.x, SwordCollider.offset.y);
         }
 
-        else if (inputX < 0)
+        else if (inputX < 0 && m_spriteRenderer.flipX == false)
         {
-            GetComponent<SpriteRenderer>().flipX = true;
+            m_spriteRenderer.flipX = true;
             m_facingDirection = -1;
+            SwordCollider.offset = new Vector2(-SwordCollider.offset.x, SwordCollider.offset.y);
         }
 
         // Move
