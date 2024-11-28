@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class Hebel_Fahrstuhl : MonoBehaviour
 {
-
-    public Fahrstuhl_Movement platformScript; // Verknüpfen mit dem Plattformskript
+    public Fahrstuhl_Movement platformScript; // Verbindung zum Plattformskript
     private bool isActivated = false; // Status des Schalters
-    public float rotationAngle = 45f; // Winkel, um den der Schalter gedreht wird
+    public float rotationAngle = 45f; // Winkel der Rotation
     private float initialZRotation; // Ausgangsrotation des Schalters
 
     private void Start()
@@ -16,31 +15,30 @@ public class Hebel_Fahrstuhl : MonoBehaviour
         initialZRotation = transform.eulerAngles.z;
     }
 
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Sword")) // Nur auf Spieler-Kollision reagieren
+      
+        if (collision.CompareTag("Sword")) // Reagiert nur auf den Spieler
         {
+            ToggleSwitch(); // Schalter umschalten
             platformScript.ActivatePlatform(); // Plattform aktivieren
-            ToggleSwitch();
+              Debug.Log("Spieler hat den Schalter berührt.");
         }
     }
-
-
 
     private void ToggleSwitch()
     {
         if (isActivated)
         {
-            // Zurück zur Ausgangsrotation
-            transform.rotation = Quaternion.Euler(0, 0, initialZRotation);
+            transform.rotation = Quaternion.Euler(0, 0, initialZRotation); // Zurückdrehen
             isActivated = false;
+          
         }
         else
         {
-            // Drehe den Schalter um den Winkel
-            transform.rotation = Quaternion.Euler(0, 0, initialZRotation + rotationAngle);
+            transform.rotation = Quaternion.Euler(0, 0, initialZRotation + rotationAngle); // Drehen
             isActivated = true;
+           
         }
     }
 }

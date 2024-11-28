@@ -21,7 +21,7 @@ public class Damage : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(Vector3.Distance(transform.position, Tower.transform.position));
+        
         if(Vector3.Distance(transform.position, Tower.transform.position) < 1.5 && Time.time - lastDamageTime > 2f)
         {
             towerHealth.TakeDamage(damage);
