@@ -11,6 +11,16 @@ public class HeroKnight : MonoBehaviour
     [SerializeField] float m_rollForce = 6.0f;
     [SerializeField] bool m_noBlood = false;
     [SerializeField] GameObject m_slideDust;
+    public float Speed
+{
+    get { return m_speed; }
+    set { m_speed = value; }
+}
+
+public float JumpForce{
+     get { return m_jumpForce; }
+    set { m_jumpForce = value; }
+}
 
     private Animator m_animator;
     private Rigidbody2D m_body2d;
