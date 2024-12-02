@@ -11,6 +11,16 @@ public class HeroKnight : MonoBehaviour
     [SerializeField] float m_rollForce = 6.0f;
     [SerializeField] bool m_noBlood = false;
     [SerializeField] GameObject m_slideDust;
+    public float Speed
+{
+    get { return m_speed; }
+    set { m_speed = value; }
+}
+
+public float JumpForce{
+     get { return m_jumpForce; }
+    set { m_jumpForce = value; }
+}
 
     private Animator m_animator;
     private Rigidbody2D m_body2d;
@@ -29,12 +39,18 @@ public class HeroKnight : MonoBehaviour
     private float m_delayToIdle = 0.0f;
     private float m_rollDuration = 8.0f / 14.0f;
     private float m_rollCurrentTime;
+    private SpriteRenderer m_spriteRenderer;
+
+    //Movement on Moving Platforms
+    private Transform currentPlatform;
+    private bool isOnPlatform = false; 
 
     //Player HEALTH
     public int maxHealth = 100;
     public int currentHealth;
     public HealthBar healthBar;
     public bool isDying = false;
+
 
 
     // Use this for initialization
@@ -48,6 +64,8 @@ public class HeroKnight : MonoBehaviour
         m_wallSensorL1 = transform.Find("WallSensor_L1").GetComponent<Sensor_HeroKnight>();
         m_wallSensorL2 = transform.Find("WallSensor_L2").GetComponent<Sensor_HeroKnight>();
         SwordCollider = transform.Find("Sword").GetComponent<BoxCollider2D>();
+        m_spriteRenderer = GetComponent<SpriteRenderer>();
+
 
         //Player HEALTH
         currentHealth = 100;
@@ -73,6 +91,8 @@ public class HeroKnight : MonoBehaviour
         {
             m_grounded = true;
             m_animator.SetBool("Grounded", m_grounded);
+
+
         }
 
         //Check if character just started falling
@@ -86,16 +106,18 @@ public class HeroKnight : MonoBehaviour
         float inputX = Input.GetAxis("Horizontal");
 
         // Swap direction of sprite depending on walk direction
-        if (inputX > 0)
+        if (inputX > 0 && m_spriteRenderer.flipX == true)
         {
-            GetComponent<SpriteRenderer>().flipX = false;
+            m_spriteRenderer.flipX = false;
             m_facingDirection = 1;
+            SwordCollider.offset = new Vector2(-SwordCollider.offset.x, SwordCollider.offset.y);
         }
 
-        else if (inputX < 0)
+        else if (inputX < 0 && m_spriteRenderer.flipX == false)
         {
-            GetComponent<SpriteRenderer>().flipX = true;
+            m_spriteRenderer.flipX = true;
             m_facingDirection = -1;
+            SwordCollider.offset = new Vector2(-SwordCollider.offset.x, SwordCollider.offset.y);
         }
 
         // Move
@@ -203,6 +225,19 @@ public class HeroKnight : MonoBehaviour
             m_animator.SetTrigger("Death");
             isDying = true;
         }
+
+
+        //Movemtn Platform
+        if (Input.GetKeyDown(KeyCode.Space) && isOnPlatform)
+    {
+        transform.SetParent(null); // Parenting entfernen
+        isOnPlatform = false; // Spieler verlässt die Plattform
+
+        
+
+    }
+
+
     }
 
     //Player HEALTH
@@ -238,4 +273,35 @@ public class HeroKnight : MonoBehaviour
             dust.transform.localScale = new Vector3(m_facingDirection, 1, 1);
         }
     }
+
+    //Movement on Moving Platforms
+  private void OnTriggerEnter2D(Collider2D collision)
+{
+    // Prüfen, ob der Trigger mit einer Plattform erfolgt
+    if (collision.CompareTag("MovingPlatform"))
+    {
+        // Wenn der Spieler noch nicht auf der Plattform ist, setze Parenting
+        if (!isOnPlatform)
+        {
+            currentPlatform = collision.transform;
+            isOnPlatform = true;
+            transform.SetParent(currentPlatform); // Parenting setzen
+        }
+    }
+}
+
+private void OnTriggerExit2D(Collider2D collision)
+{
+    // Prüfen, ob der Trigger mit der Plattform endet
+    if (collision.CompareTag("MovingPlatform") && collision.transform == currentPlatform)
+    {
+        currentPlatform = null;
+        isOnPlatform = false;
+        transform.SetParent(null); // Parenting entfernen
+    }
+}
+
+
+
+
 }
