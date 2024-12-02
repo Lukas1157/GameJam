@@ -5,18 +5,21 @@ using UnityEngine.UI;
 
 public class TowerHealthbar : MonoBehaviour
 {
-    public Slider Towerslider;
-
+    private Slider towerSlider;
+    private void Start()
+    {
+        towerSlider = GetComponent<Slider>();
+    }
 
     public void SetMaxHealth(int health)
     {
-        Towerslider.maxValue = health;
-        Towerslider.value = health;
+        towerSlider.maxValue = health;
+        towerSlider.value = health;
     }
 
 
     public void SetHealth(int health)
     {
-      Towerslider.value = health;
+      towerSlider.value = health;
     }
 }
