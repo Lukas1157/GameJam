@@ -6,8 +6,8 @@ public class Damage : MonoBehaviour
 {
 
     public int damage = 2;
-    public HealthTower towerHealth;
-    public GameObject Tower;
+    private TowerController towerController;
+    private GameObject Tower;
     public float lastDamageTime;
 
 
@@ -15,16 +15,16 @@ public class Damage : MonoBehaviour
     void Start()
     {   
         Tower = GameObject.Find("Tower");
-        towerHealth = Tower.GetComponent<HealthTower>();
+        towerController = Tower.GetComponent<TowerController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(Vector3.Distance(transform.position, Tower.transform.position));
+        //Debug.Log(Vector3.Distance(transform.position, Tower.transform.position));
         if(Vector3.Distance(transform.position, Tower.transform.position) < 1.5 && Time.time - lastDamageTime > 2f)
         {
-            towerHealth.TakeDamage(damage);
+            towerController.TakeDamage(damage);
             lastDamageTime = Time.time;
         } 
     }
