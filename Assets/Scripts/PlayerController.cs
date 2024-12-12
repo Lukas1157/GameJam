@@ -28,12 +28,7 @@ public class PlayerController : MonoBehaviour
 
     void Attack()
     {
-        // Spielt die Angriff-Animation ab
-        if (animator != null)
-        {
-            animator.SetTrigger("Attack");
-        }
-
+       
         // Findet alle Gegner im Angriffsradius
         Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(attackPoint.position, new Vector2(attackRange, attackRange), 0, enemyLayer);
 

@@ -15,11 +15,27 @@ public class EnemyController : MonoBehaviour
 
     private Animator animator;
     private float lastAttackTime = 0;
+    ParticleSystem BoxExplosionParticle;
+
+
+
+    void OnTriggerEnter2D(Collider2D collision){
+
+    if (collision.CompareTag("Sword")){
+         BoxExplosionParticle.Play();
+    } else{
+        BoxExplosionParticle.Stop();
+    }
+   
+
+    }
 
     void Start()
     {
         currentHealth = maxHealth;
         animator = GetComponent<Animator>();
+        BoxExplosionParticle=GetComponent<ParticleSystem>();
+        BoxExplosionParticle.Stop();
     }
 
     void Update()

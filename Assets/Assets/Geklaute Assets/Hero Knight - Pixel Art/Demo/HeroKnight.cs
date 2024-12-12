@@ -128,9 +128,10 @@ public float JumpForce{
         m_animator.SetFloat("AirSpeedY", m_body2d.velocity.y);
 
         // -- Handle Animations --
-        //Wall Slide
+
+        /* Wall Slide
         m_isWallSliding = (m_wallSensorR1.State() && m_wallSensorR2.State()) || (m_wallSensorL1.State() && m_wallSensorL2.State());
-        m_animator.SetBool("WallSlide", m_isWallSliding);
+        m_animator.SetBool("WallSlide", m_isWallSliding); */
 
         //Death
         if (Input.GetKeyDown("e") && !m_rolling)
@@ -166,7 +167,7 @@ public float JumpForce{
             StartCoroutine("HitAttack");
         }
 
-        // Block
+        /* Block
         else if (Input.GetMouseButtonDown(1) && !m_rolling)
         {
             m_animator.SetTrigger("Block");
@@ -183,6 +184,7 @@ public float JumpForce{
             m_animator.SetTrigger("Roll");
             m_body2d.velocity = new Vector2(m_facingDirection * m_rollForce, m_body2d.velocity.y);
         }
+        */
 
 
         //Jump
@@ -232,8 +234,6 @@ public float JumpForce{
     {
         transform.SetParent(null); // Parenting entfernen
         isOnPlatform = false; // Spieler verlässt die Plattform
-
-        
 
     }
 
