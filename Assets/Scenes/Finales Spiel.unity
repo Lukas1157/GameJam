@@ -635,6 +635,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd97a7ebbdc3eb64891541adeb3a5682, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  towerSlider: {fileID: 102958113}
 --- !u!114 &102958113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15749,6 +15750,10 @@ PrefabInstance:
       propertyPath: targetPlayer
       value: 
       objectReference: {fileID: 2005199367}
+    - target: {fileID: 4683523826105180568, guid: 323118531a7a962439d21cf1b81a7e8c, type: 3}
+      propertyPath: damage
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4780402580549633836, guid: 323118531a7a962439d21cf1b81a7e8c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.07
@@ -15864,7 +15869,7 @@ PrefabInstance:
       objectReference: {fileID: 102958112}
     - target: {fileID: 8460338231912728906, guid: c96d8b6608d9cd64097f34661fbcd386, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8460338231912728906, guid: c96d8b6608d9cd64097f34661fbcd386, type: 3}
       propertyPath: maxHealth

@@ -19,7 +19,7 @@ public class HealthTower : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.O))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             TakeDamage(1);
         }
