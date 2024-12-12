@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class TowerHealthbar : MonoBehaviour
 {
-    private Slider towerSlider;
+    public Slider towerSlider;
     private void Start()
     {
         towerSlider = GetComponent<Slider>();

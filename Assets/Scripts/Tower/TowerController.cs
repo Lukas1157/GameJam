@@ -5,7 +5,7 @@ public class TowerController : MonoBehaviour
 {
     public int maxHealth = 10; // Maximale Lebenspunkte des Turms
     public int currentHealth; // Aktuelle Lebenspunkte
-    public TowerHealthbar healthBar; // UI-Slider für die Lebenspunkte (falls benötigt)
+    public TowerHealthbar healthBar; // UI-Slider fï¿½r die Lebenspunkte (falls benï¿½tigt)
 
     void Start()
     {
@@ -15,14 +15,14 @@ public class TowerController : MonoBehaviour
 
     public void Heal(int amount)
     {
-        // Heilt den Turm und überschreitet nicht das Maximum
+        // Heilt den Turm und ï¿½berschreitet nicht das Maximum
         currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
         UpdateHealthBar(); // Aktualisiert den UI-Balken
     }
 
     public void TakeDamage(int damage)
     {Debug.Log(damage);
-        // Reduziert die Lebenspunkte und prüft, ob der Turm zerstört ist
+        // Reduziert die Lebenspunkte und prï¿½ft, ob der Turm zerstï¿½rt ist
         currentHealth -= damage;
 
         if (currentHealth <= 0)

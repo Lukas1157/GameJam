@@ -14363,6 +14363,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3564026850829729314, guid: 0cadafc44435d2649b8aa171d49f61d6, type: 3}
   m_PrefabInstance: {fileID: 1710963459}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1898226958 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7606981081706838532, guid: 323118531a7a962439d21cf1b81a7e8c, type: 3}
+  m_PrefabInstance: {fileID: 338940052305432607}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6eb1402c17e84a9282a7f0f62eb584f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1899558530
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15718,6 +15729,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2087123663821519230, guid: 323118531a7a962439d21cf1b81a7e8c, type: 3}
+      propertyPath: aiPath
+      value: 
+      objectReference: {fileID: 1898226958}
+    - target: {fileID: 2087123663821519230, guid: 323118531a7a962439d21cf1b81a7e8c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2656999814424126833, guid: 323118531a7a962439d21cf1b81a7e8c, type: 3}
       propertyPath: target
       value: 
@@ -15791,6 +15810,10 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 102958112}
+    - target: {fileID: 650904460859855526, guid: c96d8b6608d9cd64097f34661fbcd386, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5702593447976474066, guid: c96d8b6608d9cd64097f34661fbcd386, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.587
@@ -15839,6 +15862,18 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 102958112}
+    - target: {fileID: 8460338231912728906, guid: c96d8b6608d9cd64097f34661fbcd386, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8460338231912728906, guid: c96d8b6608d9cd64097f34661fbcd386, type: 3}
+      propertyPath: maxHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8460338231912728906, guid: c96d8b6608d9cd64097f34661fbcd386, type: 3}
+      propertyPath: currentHealth
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
