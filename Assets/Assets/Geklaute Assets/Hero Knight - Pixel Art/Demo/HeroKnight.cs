@@ -11,6 +11,7 @@ public class HeroKnight : MonoBehaviour
     [SerializeField] float m_rollForce = 6.0f;
     [SerializeField] bool m_noBlood = false;
     [SerializeField] GameObject m_slideDust;
+    [SerializeField] private int attackDamage = 10;
     public float Speed
 {
     get { return m_speed; }
@@ -250,9 +251,25 @@ public float JumpForce{
     //SwordCollider
     private IEnumerator HitAttack()
     {
-        SwordCollider.enabled = true;
-        yield return new WaitForSeconds(0.2f);
-        SwordCollider.enabled = false;
+         SwordCollider.enabled = true;
+
+    // Schaden beim Einschalten des Schwertkolliders berechnen
+    Collider2D[] hitEnemies = new Collider2D[10];
+    ContactFilter2D filter = new ContactFilter2D();
+    filter.SetLayerMask(LayerMask.GetMask("Enemies")); // Gegner-Layer
+    int hits = SwordCollider.OverlapCollider(filter, hitEnemies);
+
+    for (int i = 0; i < hits; i++)
+    {
+        EnemyController enemy = hitEnemies[i].GetComponent<EnemyController>();
+        if (enemy != null)
+        {
+            enemy.TakeDamage(attackDamage);
+        }
+    }
+
+    yield return new WaitForSeconds(0.2f);
+    SwordCollider.enabled = false;
     }
     // Animation Events
     // Called in slide animation.
@@ -288,6 +305,15 @@ public float JumpForce{
             transform.SetParent(currentPlatform); // Parenting setzen
         }
     }
+
+    if (collision.CompareTag("Enemy"))
+    {
+        EnemyController enemy = collision.GetComponent<EnemyController>();
+        if (enemy != null && SwordCollider.enabled) // Stelle sicher, dass der Schwertkollider aktiv ist
+        {
+            enemy.TakeDamage(attackDamage); // Schaden zufügen
+        }
+    }
 }
 
 private void OnTriggerExit2D(Collider2D collision)
@@ -300,6 +326,8 @@ private void OnTriggerExit2D(Collider2D collision)
         transform.SetParent(null); // Parenting entfernen
     }
 }
+
+
 
 
 
