@@ -66,6 +66,7 @@ public float JumpForce{
         m_wallSensorL2 = transform.Find("WallSensor_L2").GetComponent<Sensor_HeroKnight>();
         SwordCollider = transform.Find("Sword").GetComponent<BoxCollider2D>();
         m_spriteRenderer = GetComponent<SpriteRenderer>();
+        
 
 
         //Player HEALTH
@@ -96,6 +97,14 @@ public float JumpForce{
 
         }
 
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.1f, LayerMask.GetMask("Ground"));
+
+    if (hit.collider == null)
+    {
+        // Verhindere ungewollte Bewegung über die Kante
+        m_body2d.velocity = new Vector2(0, m_body2d.velocity.y);
+    }
+
         //Check if character just started falling
         if (m_grounded && !m_groundSensor.State())
         {
@@ -112,6 +121,7 @@ public float JumpForce{
             m_spriteRenderer.flipX = false;
             m_facingDirection = 1;
             SwordCollider.offset = new Vector2(-SwordCollider.offset.x, SwordCollider.offset.y);
+        
         }
 
         else if (inputX < 0 && m_spriteRenderer.flipX == false)
@@ -119,6 +129,7 @@ public float JumpForce{
             m_spriteRenderer.flipX = true;
             m_facingDirection = -1;
             SwordCollider.offset = new Vector2(-SwordCollider.offset.x, SwordCollider.offset.y);
+       
         }
 
         // Move
