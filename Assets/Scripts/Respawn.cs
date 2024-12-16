@@ -47,12 +47,12 @@ public class Respawn : MonoBehaviour
 {
     heroKnightScript.Speed = slowSpeed;
     heroKnightScript.JumpForce = slowJump;// Verlangsamen
-    Debug.Log("Spieler verlangsamt.");
+  
 
     yield return new WaitForSeconds(slowDuration);
 
     heroKnightScript.Speed = originalSpeed;
     heroKnightScript.JumpForce = originalJump;// Zurücksetzen
-    Debug.Log("Spieler wieder normal schnell.");
+
 }
 }

@@ -97,13 +97,9 @@ public float JumpForce{
 
         }
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.1f, LayerMask.GetMask("Ground"));
+       
 
-    if (hit.collider == null)
-    {
-        // Verhindere ungewollte Bewegung über die Kante
-        m_body2d.velocity = new Vector2(0, m_body2d.velocity.y);
-    }
+    
 
         //Check if character just started falling
         if (m_grounded && !m_groundSensor.State())
@@ -115,7 +111,7 @@ public float JumpForce{
         // -- Handle input and movement --
         float inputX = Input.GetAxis("Horizontal");
 
-        // Swap direction of sprite depending on walk direction
+        // Swap direction of sprite depending on walk direction and swap sword collider direction
         if (inputX > 0 && m_spriteRenderer.flipX == true)
         {
             m_spriteRenderer.flipX = false;

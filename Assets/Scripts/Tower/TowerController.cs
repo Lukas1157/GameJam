@@ -21,7 +21,7 @@ public class TowerController : MonoBehaviour
     }
 
     public void TakeDamage(int damage)
-    {Debug.Log(damage);
+    {
         // Reduziert die Lebenspunkte und pr�ft, ob der Turm zerst�rt ist
         currentHealth -= damage;
 

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class HealObjectController : MonoBehaviour
 {
@@ -14,14 +15,15 @@ public class HealObjectController : MonoBehaviour
     private float lastAttackTime = 0;
     private ParticleSystem BoxExplosionParticle;
     private ParticleSystem destroyParticle;
-    private bool canBeDestroyed;
+
+ 
 
 
 
     void OnTriggerEnter2D(Collider2D collision){
 
     if (collision.CompareTag("Sword")){
-         BoxExplosionParticle.Play();
+         BoxExplosionParticle.Play(false);
             TakeDamage(10);
     } else{
         BoxExplosionParticle.Stop();
@@ -37,16 +39,13 @@ public class HealObjectController : MonoBehaviour
         BoxExplosionParticle=GetComponent<ParticleSystem>();
         BoxExplosionParticle.Stop();
 
-        destroyParticle = GetComponentInChildren<ParticleSystem>();
+        destroyParticle = transform.GetChild(0).GetComponent<ParticleSystem>();
 
     }
 
     void Update()
     {
-        if (canBeDestroyed && !destroyParticle.isEmitting)
-        {
-            Destroy(gameObject);
-        }
+        
     }
 
     
@@ -76,10 +75,20 @@ public class HealObjectController : MonoBehaviour
             }
         }
 
+        Debug.Log("zerstört die kiste");
         destroyParticle.Play();
-        canBeDestroyed = true;
-        // Gegner deaktivieren
-       
+        transform.GetComponent<Renderer>().enabled = false;
+        StartCoroutine(DestroyScenario());
+              
+    }
+
+    IEnumerator DestroyScenario()
+    {
+        while (destroyParticle.isEmitting)
+        {
+            yield return null;
+        } 
+        DestroyObject(gameObject);
     }
 
    
