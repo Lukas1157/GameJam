@@ -40,20 +40,16 @@ public class HealObjectController : MonoBehaviour
         BoxExplosionParticle.Stop();
 
         destroyParticle = transform.GetChild(0).GetComponent<ParticleSystem>();
+        destroyParticle.Stop();
 
     }
 
-    void Update()
-    {
-        
-    }
-
-    
+       
 
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
-        Debug.Log(currentHealth);
+     
         if (currentHealth <= 0)
         {
             DestroyObject();
@@ -75,7 +71,7 @@ public class HealObjectController : MonoBehaviour
             }
         }
 
-        Debug.Log("zerstört die kiste");
+       
         destroyParticle.Play();
         transform.GetComponent<Renderer>().enabled = false;
         StartCoroutine(DestroyScenario());

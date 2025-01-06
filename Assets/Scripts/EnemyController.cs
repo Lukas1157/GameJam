@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class EnemyController : MonoBehaviour
 {
@@ -15,14 +16,16 @@ public class EnemyController : MonoBehaviour
 
     private Animator animator;
     private float lastAttackTime = 0;
-    ParticleSystem BoxExplosionParticle;
+   private ParticleSystem BoxExplosionParticle;
+    private ParticleSystem destroyParticle;
 
 
 
     void OnTriggerEnter2D(Collider2D collision){
 
     if (collision.CompareTag("Sword")){
-         BoxExplosionParticle.Play();
+         BoxExplosionParticle.Play(false);
+       
     } else{
         BoxExplosionParticle.Stop();
     }
@@ -36,21 +39,25 @@ public class EnemyController : MonoBehaviour
         animator = GetComponent<Animator>();
         BoxExplosionParticle=GetComponent<ParticleSystem>();
         BoxExplosionParticle.Stop();
+
+        destroyParticle = transform.GetChild(0).GetComponent<ParticleSystem>();
+        destroyParticle.Stop();
+
     }
 
     void Update()
     {
         // Gegner greift automatisch an, wenn der Spieler in Reichweite ist
-        Collider2D player = Physics2D.OverlapBox(attackPoint.position, new Vector2(attackRange, attackRange), 0, playerLayer);
+       /* Collider2D player = Physics2D.OverlapBox(attackPoint.position, new Vector2(attackRange, attackRange), 0, playerLayer);
 
         if (player != null && Time.time >= lastAttackTime + attackCooldown)
         {
             Attack(player.GetComponent<PlayerController>());
             lastAttackTime = Time.time;
-        }
+        } */
     }
 
-    void Attack(PlayerController player)
+    /*void Attack(PlayerController player)
     {
         // Spielt die Angriff-Animation ab
         if (animator != null)
@@ -60,7 +67,7 @@ public class EnemyController : MonoBehaviour
 
         // Fügt dem Spieler Schaden zu
         player.TakeDamage(attackDamage);
-    }
+    } */
 
     public void TakeDamage(int damage)
     {
@@ -92,17 +99,20 @@ public class EnemyController : MonoBehaviour
             }
         }
 
-        // Gegner deaktivieren
-        gameObject.SetActive(false);
+        destroyParticle.Play();
+        transform.GetComponent<Renderer>().enabled = false;
+        StartCoroutine(DieScenario());
+
     }
 
-    private void OnDrawGizmosSelected()
+    IEnumerator DieScenario()
     {
-        // Zeichnet den Angriffsradius im Editor
-        if (attackPoint == null)
-            return;
-
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireCube(attackPoint.position, new Vector3(attackRange, attackRange, 0));
+        while (destroyParticle.isEmitting)
+        {
+            yield return null;
+        } 
+        DestroyObject(gameObject);
     }
+
+    
 }
