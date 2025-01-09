@@ -5,29 +5,29 @@ public class EnemyController : MonoBehaviour
 {
     public int maxHealth = 50;
     public int currentHealth;
-    public int attackDamage = 10;
-    public float attackCooldown = 2.0f;
-    public float attackRange = 1.0f;
+    //public int attackDamage = 10;
+    //public float attackCooldown = 2.0f;
+    //public float attackRange = 1.0f;
     public LayerMask playerLayer;
 
     public Transform attackPoint;
-    public int healAmount = 20; // Menge an Lebenspunkten, die wiederhergestellt werden
-    public PlayerController targetPlayer; // Referenz zum Spieler oder einem anderen Objekt, dessen Leben wiederhergestellt werden soll
+      public PlayerController targetPlayer; // Referenz zum Spieler oder einem anderen Objekt, dessen Leben wiederhergestellt werden soll
 
     private Animator animator;
     private float lastAttackTime = 0;
-   private ParticleSystem BoxExplosionParticle;
+   private ParticleSystem hitParticle;
     private ParticleSystem destroyParticle;
+    private bool isDead = false;
 
 
 
     void OnTriggerEnter2D(Collider2D collision){
 
-    if (collision.CompareTag("Sword")){
-         BoxExplosionParticle.Play(false);
-       
+    if (collision.CompareTag("Sword") && isDead == false){
+         hitParticle.Play(false);
+                
     } else{
-        BoxExplosionParticle.Stop();
+        hitParticle.Stop();
     }
    
 
@@ -37,11 +37,9 @@ public class EnemyController : MonoBehaviour
     {
         currentHealth = maxHealth;
         animator = GetComponent<Animator>();
-        BoxExplosionParticle=GetComponent<ParticleSystem>();
-        BoxExplosionParticle.Stop();
-
-        destroyParticle = transform.GetChild(0).GetComponent<ParticleSystem>();
-        destroyParticle.Stop();
+        hitParticle= transform.GetChild(0).GetComponent<ParticleSystem>();
+               destroyParticle = transform.GetChild(1).GetComponent<ParticleSystem>();
+      
 
     }
 
@@ -80,38 +78,21 @@ public class EnemyController : MonoBehaviour
     }
 
     void Die()
-    {
-        Debug.Log("Enemy died.");
-        // Spielt die Sterbeanimation ab
-        if (animator != null)
-        {
-            animator.SetTrigger("Death");
-        }
-
-        // Heilung eines Objekts mit dem Layer "Tower"
-        GameObject tower = FindObjectOfType<TowerController>()?.gameObject; // Findet ein Tower-Objekt
-        if (tower != null && tower.layer == LayerMask.NameToLayer("Tower"))
-        {
-            TowerController towerController = tower.GetComponent<TowerController>();
-            if (towerController != null)
-            {
-                towerController.Heal(healAmount); // Heilt den Turm
-            }
-        }
+    {        
+        Debug.Log("gegner tot");
+        isDead =  true;
 
         destroyParticle.Play();
-        transform.GetComponent<Renderer>().enabled = false;
+        //transform.GetComponent<Renderer>().enabled = false;
         StartCoroutine(DieScenario());
 
     }
 
     IEnumerator DieScenario()
     {
-        while (destroyParticle.isEmitting)
-        {
-            yield return null;
-        } 
-        DestroyObject(gameObject);
+       yield return new WaitForSeconds(destroyParticle.main.duration);
+
+             Destroy(gameObject);
     }
 
     

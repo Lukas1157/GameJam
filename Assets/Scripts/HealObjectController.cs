@@ -15,6 +15,8 @@ public class HealObjectController : MonoBehaviour
     private float lastAttackTime = 0;
     private ParticleSystem BoxExplosionParticle;
     private ParticleSystem destroyParticle;
+    private ParticleSystem floatingParticle;
+    private bool isDestroyed = false;
 
  
 
@@ -22,7 +24,7 @@ public class HealObjectController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision){
 
-    if (collision.CompareTag("Sword")){
+    if (collision.CompareTag("Sword") && isDestroyed == false){
          BoxExplosionParticle.Play(false);
             TakeDamage(10);
     } else{
@@ -41,6 +43,8 @@ public class HealObjectController : MonoBehaviour
 
         destroyParticle = transform.GetChild(0).GetComponent<ParticleSystem>();
         destroyParticle.Stop();
+		floatingParticle = transform.GetChild(1).GetComponent<ParticleSystem>();
+		floatingParticle.Play();
 
     }
 
@@ -71,7 +75,7 @@ public class HealObjectController : MonoBehaviour
             }
         }
 
-       
+       isDestroyed = true;
         destroyParticle.Play();
         transform.GetComponent<Renderer>().enabled = false;
         StartCoroutine(DestroyScenario());
@@ -80,7 +84,7 @@ public class HealObjectController : MonoBehaviour
 
     IEnumerator DestroyScenario()
     {
-        while (destroyParticle.isEmitting)
+        while (destroyParticle.isPlaying)
         {
             yield return null;
         } 
