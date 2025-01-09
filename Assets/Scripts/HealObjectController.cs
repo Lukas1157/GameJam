@@ -12,7 +12,7 @@ public class HealObjectController : MonoBehaviour
     public PlayerController targetPlayer; // Referenz zum Spieler oder einem anderen Objekt, dessen Leben wiederhergestellt werden soll
 
     private Animator animator;
-    private float lastAttackTime = 0;
+    //private float lastAttackTime = 0;
     private ParticleSystem BoxExplosionParticle;
     private ParticleSystem destroyParticle;
     private ParticleSystem floatingParticle;
@@ -88,7 +88,7 @@ public class HealObjectController : MonoBehaviour
         {
             yield return null;
         } 
-        DestroyObject(gameObject);
+        Destroy(gameObject);
     }
 
    

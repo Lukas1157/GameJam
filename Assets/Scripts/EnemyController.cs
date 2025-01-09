@@ -14,7 +14,7 @@ public class EnemyController : MonoBehaviour
       public PlayerController targetPlayer; // Referenz zum Spieler oder einem anderen Objekt, dessen Leben wiederhergestellt werden soll
 
     private Animator animator;
-    private float lastAttackTime = 0;
+    //private float lastAttackTime = 0;
    private ParticleSystem hitParticle;
     private ParticleSystem destroyParticle;
     private bool isDead = false;
@@ -79,7 +79,7 @@ public class EnemyController : MonoBehaviour
 
     void Die()
     {        
-        Debug.Log("gegner tot");
+       
         isDead =  true;
 
         destroyParticle.Play();
