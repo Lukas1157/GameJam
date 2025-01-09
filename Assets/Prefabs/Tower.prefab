@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 1120037745981829976}
   - component: {fileID: 163097466656768215}
   - component: {fileID: 8460338231912728906}
+  - component: {fileID: 6949157438866868976}
   - component: {fileID: 650904460859855526}
   m_Layer: 8
   m_Name: Tower
@@ -233,6 +234,24 @@ MonoBehaviour:
   maxHealth: 10
   currentHealth: 0
   healthBar: {fileID: 0}
+--- !u!114 &6949157438866868976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5783823485888629952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9247edb18b958c64eb236603dad420ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  minTeleportTime: 30
+  maxTeleportTime: 120
 --- !u!114 &650904460859855526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,6 +267,7 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 0
   healthBar: {fileID: 0}
+  globalVolume: {fileID: 0}
 --- !u!1 &8086431550188722423
 GameObject:
   m_ObjectHideFlags: 0
