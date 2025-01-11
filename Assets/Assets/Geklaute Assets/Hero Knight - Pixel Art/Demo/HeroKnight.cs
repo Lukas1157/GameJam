@@ -12,6 +12,9 @@ public class HeroKnight : MonoBehaviour
     [SerializeField] bool m_noBlood = false;
     [SerializeField] GameObject m_slideDust;
     [SerializeField] private int attackDamage = 10;
+    [SerializeField] private float fallAcceleration = 2.5f; // Beschleunigung des Falls
+[SerializeField] private float maxFallSpeed = 20f; // Maximale Fallgeschwindigkeit
+   
     public float Speed
 {
     get { return m_speed; }
@@ -93,11 +96,15 @@ public float JumpForce{
         {
             m_grounded = true;
             m_animator.SetBool("Grounded", m_grounded);
+                    }
 
 
-        }
 
-       
+       if (m_body2d.velocity.y < 0) // Wenn der Charakter fällt
+    {
+        float newFallSpeed = m_body2d.velocity.y + fallAcceleration * Time.deltaTime;
+        m_body2d.velocity = new Vector2(m_body2d.velocity.x, Mathf.Max(newFallSpeed, maxFallSpeed));
+    }
 
     
 
@@ -130,10 +137,10 @@ public float JumpForce{
 
         // Move
         if (!m_rolling)
+        {
             m_body2d.velocity = new Vector2(inputX * m_speed, m_body2d.velocity.y);
-
-        //Set AirSpeed in animator
-        m_animator.SetFloat("AirSpeedY", m_body2d.velocity.y);
+                      m_animator.SetFloat("AirSpeedY", m_body2d.velocity.y); 
+        }
 
         // -- Handle Animations --
 

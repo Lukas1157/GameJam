@@ -7,9 +7,9 @@ public class HealObjectController : MonoBehaviour
     public int currentHealth;
     public LayerMask playerLayer;
 
-    public Transform attackPoint;
+    //public Transform attackPoint;
     public int healAmount = 20; // Menge an Lebenspunkten, die wiederhergestellt werden
-    public PlayerController targetPlayer; // Referenz zum Spieler oder einem anderen Objekt, dessen Leben wiederhergestellt werden soll
+    //public PlayerController targetPlayer; // Referenz zum Spieler oder einem anderen Objekt, dessen Leben wiederhergestellt werden soll
 
     private Animator animator;
     //private float lastAttackTime = 0;
@@ -17,6 +17,8 @@ public class HealObjectController : MonoBehaviour
     private ParticleSystem destroyParticle;
     private ParticleSystem floatingParticle;
     private bool isDestroyed = false;
+
+    public float respawnTime = 10f;
 
  
 
@@ -77,7 +79,9 @@ public class HealObjectController : MonoBehaviour
 
        isDestroyed = true;
         destroyParticle.Play();
+        floatingParticle.Stop();
         transform.GetComponent<Renderer>().enabled = false;
+         transform.GetComponent<Collider2D>().enabled = false;
         StartCoroutine(DestroyScenario());
               
     }
@@ -88,7 +92,15 @@ public class HealObjectController : MonoBehaviour
         {
             yield return null;
         } 
-        Destroy(gameObject);
+        
+         yield return new WaitForSeconds(respawnTime);
+         currentHealth = maxHealth;
+        isDestroyed = false;
+        transform.GetComponent<Renderer>().enabled = true;
+        transform.GetComponent<Collider2D>().enabled = true;
+        floatingParticle.Play();
+        destroyParticle.Play();
+        Debug.Log("Kiste ist respawned!");
     }
 
    
