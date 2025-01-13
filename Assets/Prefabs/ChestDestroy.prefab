@@ -5040,9 +5040,8 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
-  attackPoint: {fileID: 0}
   healAmount: 20
-  targetPlayer: {fileID: 0}
+  respawnTime: 10
 --- !u!199 &5504110064969537539
 ParticleSystemRenderer:
   serializedVersion: 6

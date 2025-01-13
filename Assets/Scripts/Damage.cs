@@ -15,17 +15,31 @@ public class Damage : MonoBehaviour
     void Start()
     {   
         Tower = GameObject.Find("Tower");
-        towerController = Tower.GetComponent<TowerController>();
+
+        if(Tower != null)
+        {
+            towerController = Tower.GetComponent<TowerController>();
+        }
+       
+
+
     }
+
 
     // Update is called once per frame
     void Update()
     {
-        if(Vector3.Distance(transform.position, Tower.transform.position) < 1.5 && Time.time - lastDamageTime > 2f)
+
+        if (Tower != null)
         {
-            towerController.TakeDamage(damage);
-            lastDamageTime = Time.time;
-        } 
+            if (Vector3.Distance(transform.position, Tower.transform.position) < 1.5 && Time.time - lastDamageTime > 2f)
+            {
+                towerController.TakeDamage(damage);
+                lastDamageTime = Time.time;
+            }
+        }
+
+        
     }
 
 }
