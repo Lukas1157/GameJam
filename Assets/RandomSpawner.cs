@@ -6,32 +6,68 @@ public class RandomSpawner : MonoBehaviour
 {
     public Transform[] spawnPoints; // Array mit Spawnpunkten
     public GameObject[] enemyPrefabs; // Array mit Gegner-Prefabs
-    public float minSpawnInterval = 1f; // Minimales Spawn-Intervall
-    public float maxSpawnInterval = 3f; // Maximales Spawn-Intervall
+
+    [System.Serializable]
+    public class Wave
+    {
+        public int enemyCount; // Anzahl der Gegner in dieser Welle
+        public float spawnInterval; // Zeit zwischen Spawns in dieser Welle
+    }
+
+    public Wave[] waves; // Array mit allen Wellen
+    public float wavePauseDuration = 5f; // Dauer der Pause zwischen den Wellen
+
+    private int currentWaveIndex = 0; // Aktuelle Wellen-ID
+    private bool isSpawningWave = false; // Ob eine Welle gerade gespawnt wird
 
     void Start()
     {
-        // Coroutine starten
-        StartCoroutine(SpawnEnemies());
+        StartCoroutine(HandleWaves());
     }
 
-    // Coroutine zum Spawnen von Gegnern
-    IEnumerator SpawnEnemies()
+    // Coroutine für Wellen-Management
+    IEnumerator HandleWaves()
     {
-        while (true)
+        while (currentWaveIndex < waves.Length)
         {
-            // Zufälliges Intervall berechnen
-            float spawnInterval = Random.Range(minSpawnInterval, maxSpawnInterval);
+            if (!isSpawningWave)
+            {
+                // Welle initialisieren und starten
+                yield return StartCoroutine(SpawnWave(waves[currentWaveIndex]));
 
-            // Warten bis zum nächsten Spawn
-            yield return new WaitForSeconds(spawnInterval);
+                // Warten bis zur nächsten Welle
+                Debug.Log($"Welle {currentWaveIndex + 1} abgeschlossen. Pause von {wavePauseDuration} Sekunden.");
+                yield return new WaitForSeconds(wavePauseDuration);
 
+                currentWaveIndex++; // Nächste Welle vorbereiten
+            }
+
+            yield return null;
+        }
+
+        Debug.Log("Alle Wellen abgeschlossen!");
+    }
+
+    // Coroutine für das Spawnen einer Welle
+    IEnumerator SpawnWave(Wave wave)
+    {
+        isSpawningWave = true;
+
+        Debug.Log($"Welle {currentWaveIndex + 1} startet mit {wave.enemyCount} Gegnern!");
+
+        for (int i = 0; i < wave.enemyCount; i++)
+        {
             // Zufälligen Gegner und Spawnpunkt auswählen
             int randEnemy = Random.Range(0, enemyPrefabs.Length);
             int randSpawnPoint = Random.Range(0, spawnPoints.Length);
 
-            // Gegner am zufälligen Punkt spawnen
+            // Gegner spawnen
             Instantiate(enemyPrefabs[randEnemy], spawnPoints[randSpawnPoint].position, Quaternion.identity);
+
+            // Warten bis zum nächsten Spawn
+            yield return new WaitForSeconds(wave.spawnInterval);
         }
+
+        isSpawningWave = false;
     }
 }

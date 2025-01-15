@@ -7451,9 +7451,41 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1118432888532661657, guid: aa22dff10c6c640b7a595b7e6bd0355f, type: 3}
+      propertyPath: waves.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1118432888532661657, guid: aa22dff10c6c640b7a595b7e6bd0355f, type: 3}
+      propertyPath: wavePauseDuration
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1118432888532661657, guid: aa22dff10c6c640b7a595b7e6bd0355f, type: 3}
       propertyPath: enemyPrefabs.Array.data[1]
       value: 
       objectReference: {fileID: 7857846281275164487, guid: 323118531a7a962439d21cf1b81a7e8c, type: 3}
+    - target: {fileID: 1118432888532661657, guid: aa22dff10c6c640b7a595b7e6bd0355f, type: 3}
+      propertyPath: waves.Array.data[0].enemyCount
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1118432888532661657, guid: aa22dff10c6c640b7a595b7e6bd0355f, type: 3}
+      propertyPath: waves.Array.data[1].enemyCount
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1118432888532661657, guid: aa22dff10c6c640b7a595b7e6bd0355f, type: 3}
+      propertyPath: waves.Array.data[2].enemyCount
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1118432888532661657, guid: aa22dff10c6c640b7a595b7e6bd0355f, type: 3}
+      propertyPath: waves.Array.data[0].spawnInterval
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1118432888532661657, guid: aa22dff10c6c640b7a595b7e6bd0355f, type: 3}
+      propertyPath: waves.Array.data[1].spawnInterval
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1118432888532661657, guid: aa22dff10c6c640b7a595b7e6bd0355f, type: 3}
+      propertyPath: waves.Array.data[2].spawnInterval
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1152966167059039042, guid: aa22dff10c6c640b7a595b7e6bd0355f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.3501155
